@@ -56,4 +56,4 @@ function game() {
 }
 
 // executes the game
-game();
+//game();

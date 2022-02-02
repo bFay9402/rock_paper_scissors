@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background: #333;
+}
+
+header {
+    background: #8a2be2;
+    color: #fff;
+    padding: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.ui-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.75rem;
+}
+
+.btn {
+    text-decoration: none;
+    border: 2px #fff solid;
+    padding: 1rem;
+    color: #fff;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+}
+
+.btn:hover {
+    background: #8a2be2;
+    border: #8a2be2 2px solid;
+}
