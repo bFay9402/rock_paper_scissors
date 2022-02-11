@@ -1,3 +1,13 @@
+let btns = document.querySelectorAll('.btn');
+let pScoreElement = document.querySelector('.p-score');
+let cScoreElement = document.querySelector('.c-score');
+let winBanner = document.querySelector('.win-banner');
+let winText = document.querySelector('.win-text');
+let rstBtn = document.querySelector('.rst-btn');
+let cpuPick = document.querySelector('.cpu-pick');
+let pScore = 0;
+let cScore = 0;
+
 function computerPlay() {
     // pick a random number from 1 - 3
     let randNum = Math.floor(Math.random() * 3) + 1;
@@ -11,13 +21,6 @@ function computerPlay() {
         return 'scissors';
     }
 }
-
-// promp the player for their choce of rock paper or scissors
-function player() {
-    let playerChoice = prompt('Rock, Paper, Scissors').toLowerCase(); // make sure no matter how they enter, its the same case 
-    return playerChoice;
-}
-
     // compare computer to player choise 
     // determine who won or if its a tie
     // show player if they won or lost
@@ -25,35 +28,60 @@ function player() {
 function playRound(comp, player) {
     // compare for rock / scissors win con
     if(comp === 'rock' && player === 'scissors'){
-        return console.log('you lose! rock beats scissors.');
+        cScore++;
+        cpuPick.textContent = 'Rock';
     } else if(comp === 'scissors' && player === 'rock') {
-        return console.log('you win! rock beats scissors.');
+        pScore++;
+        cpuPick.textContent = 'Scissors';
     }
     // compare for paper / rock win con
     if(comp === 'paper' && player === 'rock') {
-        return console.log('you lose! paper beats rock');
+        cScore++;
+        cpuPick.textContent = 'Paper';
     } else if(comp === 'rock' && player === 'paper'){
-        return console.log('you win! paper beats rock.');
+        pScore++;
+        cpuPick.textContent = 'Rock';
     }
     // compare for scissors / paper win con
     if(comp === 'scissors' && player === 'paper') {
-        return console.log('you lose! scissors beats paper');
+        cScore++;
+        cpuPick.textContent = 'Scissors';
     } else if (comp === 'paper' && player === 'scissors') {
-        return console.log('you win! scissors beat paper');
+        pScore++;
+        cpuPick.textContent = 'Paper';
     }
     // if its none of the above it must be a tie
-    else {
-        return console.log('tie! go again.');
+    if(comp === player) {
+        cpuPick.textContent = 'Tie go again!';
     }
 }
 
+// adds and event listner for a click on each button for the players choise
+// updates the score
+// if the score hits 5 for either the player or computer displays the win banner
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        playRound(computerPlay(), btn.textContent.toLowerCase());
+        if(cScore === 5){
+            winBanner.style.display = 'flex';
+            winText.textContent = 'Computer Wins!';
+        } else if(pScore === 5){
+            winBanner.style.display = 'flex';
+            winText.textContent = 'Player Wins!';
+        }
+        cScoreElement.textContent = cScore;
+        pScoreElement.textContent = pScore;
+    });
+});
 
-// play the game for 5 rounds
-function game() {
-    for (i = 0; i < 5; i++) {
-        playRound(computerPlay(), player());
-    }
+// reset button on the win banner sets values to 0, removes computers pick and the banner itself
+if(winBanner){
+    rstBtn.addEventListener('click', () => {
+        winBanner.style.display = 'none';
+        cScore = 0;
+        pScore = 0;
+        cScoreElement.textContent = 0;
+        pScoreElement.textContent = 0;
+        cpuPick.textContent = '';
+    });
 }
-
-// executes the game
-//game();
